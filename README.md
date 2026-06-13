@@ -11,7 +11,6 @@ Página única autocontenida en HTML/CSS/JS, con copy en español.
 - **`assets/`** — recursos del sitio:
   - `hero.png` — imagen de fondo del hero (textura de ondas) y apoyo visual de la sección de precios.
   - `patricia.png` — retrato de Patricia en el hero.
-  - `transition.mp4` — video original del hero. **Actualmente sin uso** (el hero pasó a imagen estática); se conserva por si se quiere recuperar.
 
 ## Características
 
