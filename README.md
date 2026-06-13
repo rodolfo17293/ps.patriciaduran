@@ -6,16 +6,20 @@ Página única autocontenida en HTML/CSS/JS, con copy en español.
 
 ## Estructura
 
-- **`Patricia Durán - Psicóloga.html`** — la landing completa (estilos y scripts embebidos).
+- **`index.html`** — la landing servida desde la raíz (GitHub Pages).
+- **`Patricia Durán - Psicóloga.html`** — copia con el mismo contenido (archivo original del diseño).
 - **`assets/`** — recursos del sitio:
-  - `hero.png` — póster/fallback del hero y apoyo visual de la sección de precios.
-  - `transition.mp4` — video de fondo del hero (loop ping‑pong, muted, autoplay).
+  - `hero.png` — imagen de fondo del hero (textura de ondas) y apoyo visual de la sección de precios.
+  - `patricia.png` — retrato de Patricia en el hero.
+  - `transition.mp4` — video original del hero. **Actualmente sin uso** (el hero pasó a imagen estática); se conserva por si se quiere recuperar.
 
 ## Características
 
-- **Hero** con video en *ping‑pong loop* (avanza y retrocede sin corte) y velo crema para legibilidad.
+- **Hero** con imagen estática de fondo, velo crema para legibilidad y retrato de Patricia junto al titular.
 - **Ondas de sonido** animadas como separadores entre secciones.
 - **Corazón que se une al scroll**: dos mitades en SVG que se acercan y se unen con un glow de confirmación.
+- **Planes**: sesión individual + packs de 4 y 8 sesiones.
+- CTAs que abren **WhatsApp** con mensaje pre-escrito.
 - *Reveals* suaves al entrar en viewport, navbar sticky con blur y menú móvil.
 - Paleta pastel (Fraunces + Inter), grano sutil y glows difusos.
 - SEO/OpenGraph, encabezados semánticos, `alt` en imágenes, foco visible y `prefers-reduced-motion` respetado.
@@ -29,7 +33,10 @@ Abre el archivo HTML en un navegador, o sírvelo con cualquier servidor estátic
 python3 -m http.server
 ```
 
+> Las dos páginas HTML deben mantenerse en sincronía: al editar `Patricia Durán - Psicóloga.html`, copia el resultado a `index.html`.
+
 ## Notas
 
-- `image2.png` no venía en el brief original; la sección de precios usa un encuadre de la textura de marca (`hero.png`).
-- Precios y datos de contacto (email, teléfono, dirección) son **placeholders** pendientes de los datos reales.
+- Algunos datos siguen como **placeholder** pendientes de confirmación: dirección (Providencia, Santiago), horario y los enlaces legales del footer.
+</content>
+</invoke>
