@@ -150,8 +150,19 @@ p{text-wrap:pretty}
     linear-gradient(100deg, rgba(250,246,242,.96) 0%, rgba(250,246,242,.86) 26%, rgba(250,246,242,.45) 52%, rgba(250,246,242,0) 74%),
     linear-gradient(0deg, rgba(250,246,242,.55), rgba(250,246,242,0) 32%);
 }
-.hero-content{position:relative;z-index:2;width:100%;padding-top:90px;padding-bottom:60px}
-.hero-content .inner{max-width:620px}
+.hero-content{position:relative;z-index:2;width:100%;padding-top:90px;padding-bottom:60px;display:flex;align-items:center;justify-content:space-between;gap:clamp(32px,5vw,64px)}
+.hero-content .inner{max-width:560px;flex:1 1 auto}
+/* hero portrait */
+.hero-portrait{flex:0 0 auto}
+.portrait-frame{
+  position:relative;width:clamp(230px,27vw,340px);aspect-ratio:4/5;border-radius:24px;overflow:hidden;
+  box-shadow:var(--shadow);border:6px solid rgba(255,255,255,.7);
+  background:repeating-linear-gradient(135deg,#efe3dc,#efe3dc 10px,#f6ece6 10px,#f6ece6 20px);
+}
+.portrait-frame img{width:100%;height:100%;object-fit:cover}
+.portrait-frame .ph-label{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;line-height:1.5;color:var(--carbon-soft);padding:22px}
+.portrait-frame.ph .ph-label{display:flex}
 .hero h1{font-size:clamp(2.6rem,6.4vw,4.6rem);margin:.35em 0 .5em}
 .hero h1 em{font-style:italic;color:var(--rosa-profundo)}
 .hero .lede{font-size:clamp(1.05rem,2.2vw,1.28rem);color:var(--carbon-soft);font-weight:300;max-width:34ch;margin-bottom:2.2em}
@@ -333,7 +344,10 @@ section{position:relative}
       linear-gradient(180deg, rgba(250,246,242,.94) 0%, rgba(250,246,242,.82) 42%, rgba(250,246,242,.5) 78%, rgba(250,246,242,.35) 100%),
       linear-gradient(100deg, rgba(250,246,242,.9) 0%, rgba(250,246,242,.55) 55%, rgba(250,246,242,.2) 100%);
   }
-  .hero-content{padding-top:104px}
+  .hero-content{padding-top:104px;flex-direction:column;align-items:flex-start;gap:36px}
+  .hero-content .inner{max-width:none}
+  .hero-portrait{align-self:center}
+  .portrait-frame{width:clamp(190px,58vw,260px)}
   .hero-meta{gap:18px 28px}
   .nav-links{
     position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:flex-start;
@@ -400,6 +414,12 @@ section{position:relative}
         <div class="item"><b>+15</b><span>años de experiencia</span></div>
         <div class="item"><b>Online</b><span>o presencial</span></div>
         <div class="item"><b>1ª sesión</b><span>gratis · 20 min</span></div>
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <div class="portrait-frame ph">
+        <img src="assets/patricia.jpg" alt="Patricia Durán, psicóloga clínica" onerror="this.style.display='none';this.parentNode.classList.add('ph')" onload="this.parentNode.classList.remove('ph')" />
+        <span class="ph-label">Foto de Patricia<br>assets/patricia.jpg</span>
       </div>
     </div>
   </div>
