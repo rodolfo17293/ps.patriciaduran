@@ -277,6 +277,25 @@ section{position:relative}
 .price-media{position:relative;background:var(--crema);overflow:hidden;min-height:280px}
 .price-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.05)}
 .price-media .veil{position:absolute;inset:0;background:linear-gradient(160deg,rgba(228,183,178,.15),rgba(208,201,232,.1))}
+/* plans (packs) */
+.plans-intro{text-align:center;max-width:520px;margin:46px auto 24px;color:var(--carbon-soft);font-weight:300;font-size:1.02rem}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin-inline:auto}
+.plan{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:30px 30px;box-shadow:var(--shadow-soft);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+}
+.plan:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.plan .tag{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--rosa-profundo)}
+.plan .ptotal{font-family:var(--serif);font-size:clamp(2rem,4.4vw,2.6rem);font-weight:300;color:var(--carbon);margin:.3em 0 .15em}
+.plan .punit{font-size:.94rem;color:var(--carbon-soft);font-weight:300}
+.plan .save{display:inline-flex;align-items:center;gap:.5em;margin-top:14px;padding:.42em 1em;border-radius:999px;
+  background:linear-gradient(135deg,rgba(242,201,160,.35),rgba(228,183,178,.35));color:var(--rosa-profundo);
+  font-size:.82rem;font-weight:500;letter-spacing:.01em}
+.plan .desc{color:var(--carbon-soft);font-weight:300;font-size:.92rem;margin-top:16px}
+.plan.is-featured{border-color:rgba(201,139,139,.4)}
+.plan .badge{position:absolute;top:-11px;right:22px;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  color:#fff;background:linear-gradient(135deg,var(--durazno),var(--rosa-sereno));padding:.42em .9em;border-radius:999px}
 
 /* ============ FOOTER ============ */
 .footer{background:var(--carbon);color:#EDE7E2;padding:80px 0 40px;position:relative;overflow:hidden}
@@ -301,7 +320,7 @@ section{position:relative}
 
 /* ============ RESPONSIVE ============ */
 @media(max-width:920px){
-  .cards,.quotes{grid-template-columns:1fr}
+  .cards,.quotes,.plans{grid-template-columns:1fr}
   .modal-grid{grid-template-columns:1fr}
   .price-card{grid-template-columns:1fr}
   .price-media{min-height:220px;order:-1}
@@ -590,6 +609,25 @@ section{position:relative}
         <img src="assets/hero.png" alt="Detalle de textura suave en tonos rosa y lavanda" loading="lazy" />
         <div class="veil" aria-hidden="true"></div>
       </div>
+    </div>
+
+    <p class="plans-intro reveal">¿Quieres sostener tu proceso con continuidad? Estos packs te acompañan el camino completo, con un valor preferente.</p>
+    <div class="plans">
+      <article class="plan reveal d1">
+        <span class="tag">Pack de 4 sesiones</span>
+        <div class="ptotal">$120.000</div>
+        <p class="punit">$30.000 por sesión</p>
+        <span class="save" aria-label="Ahorras 20.000 pesos">Ahorras $20.000</span>
+        <p class="desc">Ideal para comenzar a trabajar un objetivo con constancia, a tu ritmo.</p>
+      </article>
+      <article class="plan is-featured reveal d2">
+        <span class="badge">Mejor valor</span>
+        <span class="tag">Pack de 8 sesiones</span>
+        <div class="ptotal">$224.000</div>
+        <p class="punit">$28.000 por sesión</p>
+        <span class="save" aria-label="Ahorras 56.000 pesos">Ahorras $56.000</span>
+        <p class="desc">Para un acompañamiento sostenido en el tiempo, con el mejor precio por sesión.</p>
+      </article>
     </div>
   </div>
 </section>
