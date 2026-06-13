@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Patricia Durán — Psicóloga | Un espacio seguro para volver a ti</title>
+<meta name="description" content="Psicoterapia para mujeres con Patricia Durán. Un espacio seguro, cálido y confidencial para volver a ti. Sesiones presenciales u online. Agenda tu primera sesión." />
+<meta name="author" content="Patricia Durán" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Patricia Durán — Psicóloga" />
+<meta property="og:description" content="Un espacio seguro para volver a ti. Psicoterapia cálida y especializada en mujeres, presencial u online." />
+<meta property="og:image" content="assets/hero.png" />
+<meta property="og:locale" content="es_ES" />
+<meta name="theme-color" content="#FAF6F2" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --rosa-sereno:#E4B7B2;
+  --lavanda:#D0C9E8;
+  --durazno:#F2C9A0;
+  --crema:#FAF6F2;
+  --crema-2:#F4EDE6;
+  --carbon:#403B42;
+  --carbon-soft:#6A636B;
+  --rosa-profundo:#C98B8B;
+  --line:rgba(64,59,66,.10);
+
+  --maxw:1180px;
+  --pad:clamp(20px,5vw,40px);
+  --r:18px;
+  --r-lg:28px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
+  --shadow:0 24px 60px -28px rgba(64,59,66,.28);
+  --shadow-soft:0 14px 40px -24px rgba(64,59,66,.30);
+
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  color:var(--carbon);
+  background:var(--crema);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* grain */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  pointer-events:none;
+  opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+::selection{background:var(--rosa-sereno);color:#fff}
+:focus-visible{outline:2.5px solid var(--rosa-profundo);outline-offset:3px;border-radius:6px}
+
+h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1.08;letter-spacing:-.012em;text-wrap:balance}
+p{text-wrap:pretty}
+
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+
+.eyebrow{
+  font-family:var(--sans);
+  font-size:.74rem;
+  font-weight:500;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--rosa-profundo);
+  display:inline-flex;align-items:center;gap:.6em;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--rosa-profundo);opacity:.6}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+  font-family:var(--sans);font-weight:500;font-size:.95rem;letter-spacing:.01em;
+  padding:.92em 1.7em;border-radius:999px;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),background .4s var(--ease);
+  will-change:transform;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--durazno),var(--rosa-sereno));
+  color:#fff;
+  box-shadow:0 12px 30px -12px rgba(201,139,139,.7);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(201,139,139,.85)}
+.btn-ghost{
+  background:rgba(255,255,255,.5);
+  color:var(--carbon);
+  border:1px solid var(--line);
+  backdrop-filter:blur(6px);
+}
+.btn-ghost:hover{background:#fff;transform:translateY(-2px)}
+
+/* ============ NAVBAR ============ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .5s var(--ease),box-shadow .5s var(--ease),padding .5s var(--ease),border-color .5s var(--ease);
+  border-bottom:1px solid transparent;
+  padding:22px 0;
+}
+.nav.scrolled{
+  background:rgba(250,246,242,.72);
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  border-bottom-color:var(--line);
+  padding:13px 0;
+  box-shadow:0 8px 30px -22px rgba(64,59,66,.4);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-family:var(--serif);font-size:1.32rem;font-weight:400;letter-spacing:-.01em;display:flex;align-items:center;gap:.6em}
+.logo .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--rosa-sereno),var(--lavanda));box-shadow:0 0 0 4px rgba(228,183,178,.22)}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{font-size:.93rem;color:var(--carbon-soft);position:relative;transition:color .3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1.5px;width:0;background:var(--rosa-profundo);transition:width .35s var(--ease)}
+.nav-links a:hover{color:var(--carbon)}
+.nav-links a:hover::after{width:100%}
+.nav .btn{padding:.66em 1.35em;font-size:.9rem}
+.nav-toggle{display:none;width:42px;height:42px;border-radius:50%;align-items:center;justify-content:center;color:var(--carbon)}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:var(--crema)}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover}
+.hero-media .poster{position:absolute;inset:0;transition:opacity 1s var(--ease)}
+.hero-media.video-ready .poster{opacity:0}
+/* cream gradient overlay for legibility on the left */
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(100deg, rgba(250,246,242,.96) 0%, rgba(250,246,242,.86) 26%, rgba(250,246,242,.45) 52%, rgba(250,246,242,0) 74%),
+    linear-gradient(0deg, rgba(250,246,242,.55), rgba(250,246,242,0) 32%);
+}
+.hero-content{position:relative;z-index:2;width:100%;padding-top:90px;padding-bottom:60px}
+.hero-content .inner{max-width:620px}
+.hero h1{font-size:clamp(2.6rem,6.4vw,4.6rem);margin:.35em 0 .5em}
+.hero h1 em{font-style:italic;color:var(--rosa-profundo)}
+.hero .lede{font-size:clamp(1.05rem,2.2vw,1.28rem);color:var(--carbon-soft);font-weight:300;max-width:34ch;margin-bottom:2.2em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero-meta{display:flex;gap:26px;margin-top:2.6em;flex-wrap:wrap}
+.hero-meta .item{display:flex;flex-direction:column;gap:2px}
+.hero-meta .item b{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--carbon)}
+.hero-meta .item span{font-size:.8rem;color:var(--carbon-soft);letter-spacing:.02em}
+.scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--carbon-soft);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase}
+.scroll-cue .mouse{width:22px;height:36px;border:1.5px solid rgba(64,59,66,.35);border-radius:14px;position:relative}
+.scroll-cue .mouse::after{content:"";position:absolute;top:6px;left:50%;width:3px;height:7px;border-radius:3px;background:var(--rosa-profundo);transform:translateX(-50%);animation:scrollPulse 1.8s var(--ease) infinite}
+@keyframes scrollPulse{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* ============ GLOWS ============ */
+.glow{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;pointer-events:none;z-index:0}
+
+/* ============ SOUND WAVE SEPARATOR ============ */
+.wave-sep{position:relative;height:120px;overflow:hidden;display:flex;align-items:center}
+.wave-sep svg{width:200%;height:100%;position:absolute;left:0;top:0}
+.wave-line{fill:none;stroke-width:1.6;opacity:.55}
+.wave-flow-1{animation:waveDrift 18s linear infinite}
+.wave-flow-2{animation:waveDrift 26s linear infinite;opacity:.4}
+.wave-flow-3{animation:waveDrift 34s linear infinite;opacity:.28}
+@keyframes waveDrift{to{transform:translateX(-50%)}}
+
+/* ============ SECTIONS ============ */
+section{position:relative}
+.section{padding:clamp(80px,12vh,150px) 0}
+.center-col{max-width:760px;margin-inline:auto;text-align:center}
+.section h2{font-size:clamp(2rem,4.6vw,3.2rem);margin:.5em 0 .55em}
+.section h2 em{font-style:italic;color:var(--rosa-profundo)}
+.lead-p{font-size:clamp(1.05rem,2vw,1.22rem);color:var(--carbon-soft);font-weight:300;line-height:1.7}
+
+/* problema */
+.problema{background:linear-gradient(180deg,var(--crema),var(--crema-2))}
+.problema .center-col p{margin-bottom:1.1em}
+.problema .pull{font-family:var(--serif);font-size:clamp(1.4rem,3vw,2rem);font-weight:300;font-style:italic;color:var(--carbon);line-height:1.4;margin-top:.4em}
+
+/* ============ HEART CONNECT ============ */
+.connect{padding:clamp(90px,14vh,170px) 0;background:radial-gradient(120% 90% at 50% 40%,#fff 0%,var(--crema) 60%);overflow:hidden}
+.connect .center-col{max-width:680px}
+.heart-stage{position:relative;width:min(440px,82vw);aspect-ratio:1/.92;margin:18px auto 0}
+.heart-stage svg{width:100%;height:100%;overflow:visible}
+.heart-half{transition:none}
+.heart-glow{
+  position:absolute;inset:8%;border-radius:50%;
+  background:radial-gradient(circle,rgba(228,183,178,.85),rgba(208,201,232,.4) 45%,transparent 70%);
+  filter:blur(26px);opacity:0;transform:scale(.6);pointer-events:none;
+}
+.connect-caption{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(1.3rem,3vw,1.9rem);color:var(--carbon);
+  margin-top:34px;opacity:0;transform:translateY(14px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
+  min-height:1.4em;
+}
+.connect-caption.show{opacity:1;transform:none}
+.heart-hint{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--carbon-soft);margin-top:10px;transition:opacity .5s}
+
+/* ============ BENEFICIOS ============ */
+.beneficios{background:var(--crema-2)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:54px}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:38px 32px;box-shadow:var(--shadow-soft);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.card .ic{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;
+  background:linear-gradient(135deg,rgba(228,183,178,.3),rgba(208,201,232,.3));color:var(--rosa-profundo)}
+.card h3{font-size:1.42rem;margin-bottom:.5em;font-weight:400}
+.card p{color:var(--carbon-soft);font-size:.98rem;font-weight:300}
+
+/* ============ SERVICIOS ============ */
+.servicios{background:linear-gradient(180deg,var(--crema-2),var(--crema))}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:54px}
+.modal{
+  position:relative;border-radius:var(--r-lg);padding:42px 38px;overflow:hidden;
+  border:1px solid var(--line);background:#fff;box-shadow:var(--shadow-soft);
+}
+.modal.is-online{background:linear-gradient(150deg,#fff, #fbf3ef)}
+.modal .tag{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--rosa-profundo)}
+.modal h3{font-size:1.7rem;font-weight:400;margin:.5em 0 .5em}
+.modal p{color:var(--carbon-soft);font-weight:300;margin-bottom:1.3em}
+.modal ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.modal li{display:flex;gap:12px;align-items:flex-start;font-size:.96rem;color:var(--carbon)}
+.modal li svg{flex:none;margin-top:3px;color:var(--rosa-profundo)}
+.temas{margin-top:54px;text-align:center}
+.temas h3{font-size:1.4rem;font-weight:400;margin-bottom:1.4em}
+.chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:720px;margin-inline:auto}
+.chip{padding:.6em 1.25em;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid var(--line);font-size:.92rem;color:var(--carbon);transition:background .3s,transform .3s}
+.chip:hover{background:#fff;transform:translateY(-2px)}
+
+/* ============ TESTIMONIOS ============ */
+.testimonios{background:linear-gradient(180deg,var(--crema),var(--crema-2))}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:54px}
+.quote{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:36px 32px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;gap:20px;
+}
+.quote .mark{font-family:var(--serif);font-size:3.2rem;line-height:.5;color:var(--rosa-sereno);height:24px}
+.quote p{font-size:1.05rem;font-weight:300;color:var(--carbon);line-height:1.6;font-style:italic;flex:1}
+.quote .who{display:flex;align-items:center;gap:14px}
+.quote .av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);color:#fff;font-size:1rem;background:linear-gradient(135deg,var(--rosa-sereno),var(--lavanda))}
+.quote .who b{font-weight:500;font-size:.95rem;display:block}
+.quote .who span{font-size:.82rem;color:var(--carbon-soft)}
+
+/* ============ PRICING ============ */
+.pricing{background:var(--crema-2)}
+.price-card{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:0;border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--shadow);border:1px solid var(--line);background:#fff;
+}
+.price-body{padding:clamp(36px,5vw,58px)}
+.price-body .amt{display:flex;align-items:baseline;gap:10px;margin:.4em 0 .2em}
+.price-body .amt b{font-family:var(--serif);font-size:clamp(2.6rem,6vw,3.8rem);font-weight:300;color:var(--carbon)}
+.price-body .amt span{color:var(--carbon-soft);font-size:1rem}
+.price-body .sub{color:var(--carbon-soft);font-weight:300;margin-bottom:1.6em}
+.price-body ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin:1.4em 0 2em}
+.price-body li{display:flex;gap:12px;align-items:flex-start;font-size:.98rem}
+.price-body li svg{flex:none;margin-top:3px;color:var(--rosa-profundo)}
+.price-note{font-size:.84rem;color:var(--carbon-soft);margin-top:1.4em;line-height:1.6}
+.price-media{position:relative;background:var(--crema);overflow:hidden;min-height:280px}
+.price-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.05)}
+.price-media .veil{position:absolute;inset:0;background:linear-gradient(160deg,rgba(228,183,178,.15),rgba(208,201,232,.1))}
+
+/* ============ FOOTER ============ */
+.footer{background:var(--carbon);color:#EDE7E2;padding:80px 0 40px;position:relative;overflow:hidden}
+.footer .glow{opacity:.18;filter:blur(90px)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;position:relative;z-index:1}
+.footer .logo{color:#fff;margin-bottom:18px}
+.footer p,.footer a{color:rgba(237,231,226,.7);font-size:.94rem;font-weight:300}
+.footer a:hover{color:#fff}
+.foot-col h4{font-family:var(--sans);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(237,231,226,.5);margin-bottom:18px;font-weight:600}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.socials{display:flex;gap:12px;margin-top:20px}
+.socials a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(237,231,226,.2);display:flex;align-items:center;justify-content:center;transition:background .3s,border-color .3s}
+.socials a:hover{background:rgba(237,231,226,.12);border-color:rgba(237,231,226,.4)}
+.foot-bottom{border-top:1px solid rgba(237,231,226,.14);margin-top:56px;padding-top:26px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.82rem;color:rgba(237,231,226,.5)}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}
+.reveal.d2{transition-delay:.16s}
+.reveal.d3{transition-delay:.24s}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:920px){
+  .cards,.quotes{grid-template-columns:1fr}
+  .modal-grid{grid-template-columns:1fr}
+  .price-card{grid-template-columns:1fr}
+  .price-media{min-height:220px;order:-1}
+  .foot-grid{grid-template-columns:1fr;gap:36px}
+}
+@media(max-width:760px){
+  /* fuller cream veil so hero text stays legible over the video at full width */
+  .hero-overlay{
+    background:
+      linear-gradient(180deg, rgba(250,246,242,.94) 0%, rgba(250,246,242,.82) 42%, rgba(250,246,242,.5) 78%, rgba(250,246,242,.35) 100%),
+      linear-gradient(100deg, rgba(250,246,242,.9) 0%, rgba(250,246,242,.55) 55%, rgba(250,246,242,.2) 100%);
+  }
+  .hero-content{padding-top:104px}
+  .hero-meta{gap:18px 28px}
+  .nav-links{
+    position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:flex-start;
+    background:rgba(250,246,242,.97);backdrop-filter:blur(20px);
+    padding:96px 32px 36px;gap:22px;
+    transform:translateY(-110%);transition:transform .5s var(--ease);box-shadow:var(--shadow);
+    height:auto;
+  }
+  .nav-links.open{transform:translateY(0)}
+  .nav-links a{font-size:1.3rem;font-family:var(--serif)}
+  .nav-links .btn{display:none}
+  .nav-toggle{display:flex}
+  .nav .nav-cta{display:inline-flex}
+}
+@media(min-width:761px){.nav-cta-mobile{display:none}}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::after,*::before{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="nav" id="nav" aria-label="Navegación principal">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top" aria-label="Patricia Durán, inicio"><span class="dot" aria-hidden="true"></span>Patricia Durán</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#sobre">Sobre mí</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#agenda" class="btn btn-primary">Agenda</a>
+    </div>
+    <a href="#agenda" class="btn btn-primary nav-cta-mobile" style="padding:.6em 1.2em;font-size:.85rem">Agenda</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-media" id="heroMedia">
+    <img class="poster" src="assets/hero.png" alt="Textura abstracta de ondas suaves en tonos pastel" />
+    <video id="heroVideo" muted playsinline autoplay preload="auto" poster="assets/hero.png" aria-hidden="true">
+      <source src="assets/transition.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-content wrap">
+    <div class="inner">
+      <span class="eyebrow">Psicóloga · Terapia para mujeres</span>
+      <h1>Un espacio seguro para <em>volver a ti</em></h1>
+      <p class="lede">Acompañamiento psicológico cálido y confidencial para reencontrarte contigo misma, a tu ritmo y sin juicios.</p>
+      <div class="hero-cta">
+        <a href="#agenda" class="btn btn-primary" aria-label="Agenda tu primera sesión">Agenda tu primera sesión</a>
+        <a href="#sobre" class="btn btn-ghost">Conoce más</a>
+      </div>
+      <div class="hero-meta">
+        <div class="item"><b>+10</b><span>años de experiencia</span></div>
+        <div class="item"><b>Online</b><span>o presencial</span></div>
+        <div class="item"><b>1ª sesión</b><span>sin compromiso</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="mouse"></span>
+    Desliza
+  </div>
+</header>
+
+<!-- sound wave separator -->
+<div class="wave-sep" aria-hidden="true" style="background:linear-gradient(180deg,var(--crema),var(--crema))">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="wg1" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#E4B7B2"/><stop offset=".5" stop-color="#D0C9E8"/><stop offset="1" stop-color="#F2C9A0"/>
+      </linearGradient>
+    </defs>
+    <path class="wave-line wave-flow-1" stroke="url(#wg1)" d="M0,60 Q90,18 180,60 T360,60 T540,60 T720,60 T900,60 T1080,60 T1260,60 T1440,60 T1620,60 T1800,60 T1980,60 T2160,60 T2340,60 T2520,60 T2700,60 T2880,60"/>
+    <path class="wave-line wave-flow-2" stroke="url(#wg1)" d="M0,60 Q120,96 240,60 T480,60 T720,60 T960,60 T1200,60 T1440,60 T1680,60 T1920,60 T2160,60 T2400,60 T2640,60 T2880,60"/>
+    <path class="wave-line wave-flow-3" stroke="url(#wg1)" d="M0,60 Q70,32 140,60 T280,60 T420,60 T560,60 T700,60 T840,60 T980,60 T1120,60 T1260,60 T1400,60 T1540,60 T1680,60 T1820,60 T1960,60 T2100,60 T2240,60 T2380,60 T2520,60 T2660,60 T2800,60 T2940,60"/>
+  </svg>
+</div>
+
+<!-- ============ PROBLEMA ============ -->
+<section class="section problema" id="sobre">
+  <div class="glow" style="width:420px;height:420px;background:var(--lavanda);top:-120px;right:-80px"></div>
+  <div class="wrap">
+    <div class="center-col">
+      <span class="eyebrow reveal">El punto de partida</span>
+      <h2 class="reveal d1">A veces, sostener a todos los demás <em>nos aleja de nosotras mismas</em></h2>
+      <p class="lead-p reveal d2">Cansancio que no se va con dormir. Una ansiedad que aparece sin avisar. La sensación de estar funcionando para todos, menos para ti. No es debilidad: es una señal de que necesitas un espacio propio.</p>
+      <p class="pull reveal d2">No tienes que tenerlo todo resuelto para empezar. Solo tienes que querer escucharte.</p>
+    </div>
+  </div>
+</section>
+
+<!-- sound wave separator -->
+<div class="wave-sep" aria-hidden="true" style="background:radial-gradient(120% 90% at 50% 40%,#fff,var(--crema))">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path class="wave-line wave-flow-2" stroke="url(#wg1)" d="M0,60 Q90,18 180,60 T360,60 T540,60 T720,60 T900,60 T1080,60 T1260,60 T1440,60 T1620,60 T1800,60 T1980,60 T2160,60 T2340,60 T2520,60 T2700,60 T2880,60"/>
+    <path class="wave-line wave-flow-1" stroke="url(#wg1)" d="M0,60 Q120,96 240,60 T480,60 T720,60 T960,60 T1200,60 T1440,60 T1680,60 T1920,60 T2160,60 T2400,60 T2640,60 T2880,60"/>
+  </svg>
+</div>
+
+<!-- ============ EL MOMENTO DE CONEXIÓN ============ -->
+<section class="connect" id="conexion" aria-label="El momento de conexión">
+  <div class="wrap">
+    <div class="center-col">
+      <span class="eyebrow reveal">El momento de conexión</span>
+      <h2 class="reveal d1" data-comment-anchor="c7e9aa4aef-h2">Volver a <em>sentirse entera</em></h2>
+      <div class="heart-stage" id="heartStage">
+        <div class="heart-glow" id="heartGlow" aria-hidden="true"></div>
+        <svg viewBox="0 0 200 184" role="img" aria-label="Dos mitades de un corazón que se unen al hacer scroll">
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#E4B7B2"/>
+              <stop offset=".5" stop-color="#D0C9E8"/>
+              <stop offset="1" stop-color="#F2C9A0"/>
+            </linearGradient>
+            <clipPath id="clipL"><rect x="0" y="0" width="100" height="184"/></clipPath>
+            <clipPath id="clipR"><rect x="100" y="0" width="100" height="184"/></clipPath>
+          </defs>
+          <g class="heart-half" id="heartL" clip-path="url(#clipL)">
+            <path d="M100 172 C 96 168 30 120 22 70 C 16 38 40 20 64 20 C 84 20 98 38 100 52 C 100 52 100 172 100 172 Z" fill="url(#hg)"/>
+          </g>
+          <g class="heart-half" id="heartR" clip-path="url(#clipR)">
+            <path d="M100 172 C 104 168 170 120 178 70 C 184 38 160 20 136 20 C 116 20 102 38 100 52 C 100 52 100 172 100 172 Z" fill="url(#hg)"/>
+          </g>
+        </svg>
+      </div>
+      <p class="connect-caption" id="connectCaption">Aquí empieza el reencuentro contigo misma.</p>
+      <p class="heart-hint reveal" id="heartHint">Sigue bajando</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFICIOS ============ -->
+<section class="section beneficios" id="beneficios">
+  <div class="wrap">
+    <div class="center-col">
+      <span class="eyebrow reveal">Por qué acompañarte conmigo</span>
+      <h2 class="reveal d1">Una terapia que <em>se siente cercana</em></h2>
+    </div>
+    <div class="cards">
+      <article class="card reveal d1">
+        <div class="ic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Escucha real</h3>
+        <p>Sin prisa y sin guiones. Un espacio donde puedes decir lo que sientes y ser comprendida tal como eres.</p>
+      </article>
+      <article class="card reveal d2">
+        <div class="ic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 4 7 4c2 0 3.5 1.5 5 3 1.5-1.5 3-3 5-3 4 0 6.5 4.5 4.5 8.5C19 16.65 12 21 12 21z"/></svg></div>
+        <h3>Especialización en mujeres</h3>
+        <p>Acompañamiento centrado en la experiencia femenina: maternidad, vínculos, identidad, carga mental y autocuidado.</p>
+      </article>
+      <article class="card reveal d3">
+        <div class="ic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+        <h3>Presencial u online</h3>
+        <p>Elige lo que te acomode. La misma calidez y confidencialidad, ya sea en consulta o desde donde tú estés.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICIOS ============ -->
+<section class="section servicios" id="servicios">
+  <div class="wrap">
+    <div class="center-col">
+      <span class="eyebrow reveal">Servicios y modalidades</span>
+      <h2 class="reveal d1">Cómo trabajamos <em>juntas</em></h2>
+      <p class="lead-p reveal d2">Sesiones de 50 minutos, en un proceso pensado a tu medida. La primera sesión es un primer encuentro para conocernos, sin compromiso.</p>
+    </div>
+    <div class="modal-grid" id="como">
+      <article class="modal reveal d1">
+        <span class="tag">Presencial</span>
+        <h3>En consulta</h3>
+        <p>Un espacio físico cálido y reservado, pensado para que puedas soltar y estar contigo.</p>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ambiente seguro y confidencial</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sesiones de 50 minutos</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Horarios de mañana y tarde</li>
+        </ul>
+      </article>
+      <article class="modal is-online reveal d2">
+        <span class="tag">Online</span>
+        <h3>Desde donde estés</h3>
+        <p>La misma cercanía por videollamada, ideal si valoras la flexibilidad o estás fuera de la ciudad.</p>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Plataforma segura y privada</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sin desplazamientos</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Misma confidencialidad</li>
+        </ul>
+      </article>
+    </div>
+    <div class="temas reveal">
+      <h3>Temas frecuentes en consulta</h3>
+      <div class="chips">
+        <span class="chip">Ansiedad</span>
+        <span class="chip">Autoestima</span>
+        <span class="chip">Duelo</span>
+        <span class="chip">Maternidad</span>
+        <span class="chip">Estrés y burnout</span>
+        <span class="chip">Vínculos y pareja</span>
+        <span class="chip">Carga mental</span>
+        <span class="chip">Identidad</span>
+        <span class="chip">Crisis vitales</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- sound wave separator -->
+<div class="wave-sep" aria-hidden="true">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path class="wave-line wave-flow-1" stroke="url(#wg1)" d="M0,60 Q90,18 180,60 T360,60 T540,60 T720,60 T900,60 T1080,60 T1260,60 T1440,60 T1620,60 T1800,60 T1980,60 T2160,60 T2340,60 T2520,60 T2700,60 T2880,60"/>
+    <path class="wave-line wave-flow-3" stroke="url(#wg1)" d="M0,60 Q120,96 240,60 T480,60 T720,60 T960,60 T1200,60 T1440,60 T1680,60 T1920,60 T2160,60 T2400,60 T2640,60 T2880,60"/>
+  </svg>
+</div>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section class="section testimonios" id="testimonios">
+  <div class="wrap">
+    <div class="center-col">
+      <span class="eyebrow reveal">Testimonios</span>
+      <h2 class="reveal d1">Palabras de quienes <em>ya se escucharon</em></h2>
+    </div>
+    <div class="quotes">
+      <figure class="quote reveal d1">
+        <div class="mark" aria-hidden="true">”</div>
+        <blockquote><p>Por primera vez sentí que alguien me escuchaba de verdad, sin apurarme. Salí de cada sesión más liviana.</p></blockquote>
+        <figcaption class="who"><span class="av" aria-hidden="true">M</span><span><b>María José</b><span>34 años</span></span></figcaption>
+      </figure>
+      <figure class="quote reveal d2">
+        <div class="mark" aria-hidden="true">”</div>
+        <blockquote><p>Patricia me ayudó a poner nombre a lo que sentía y a volver a confiar en mí. Su calidez hace toda la diferencia.</p></blockquote>
+        <figcaption class="who"><span class="av" aria-hidden="true">C</span><span><b>Carolina</b><span>41 años</span></span></figcaption>
+      </figure>
+      <figure class="quote reveal d3">
+        <div class="mark" aria-hidden="true">”</div>
+        <blockquote><p>Empecé online sin muchas expectativas y se volvió mi espacio de la semana. Hoy me cuido de una forma que no conocía.</p></blockquote>
+        <figcaption class="who"><span class="av" aria-hidden="true">V</span><span><b>Valentina</b><span>29 años</span></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING / AGENDA ============ -->
+<section class="section pricing" id="agenda">
+  <div class="wrap">
+    <div class="center-col">
+      <span class="eyebrow reveal">Agenda tu sesión</span>
+      <h2 class="reveal d1">Empieza tu proceso <em>hoy</em></h2>
+    </div>
+    <div class="price-card reveal d1" style="margin-top:48px">
+      <div class="price-body">
+        <span class="tag" style="font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rosa-profundo);font-weight:500">Sesión individual</span>
+        <div class="amt"><b>$25.000</b><span>/ 50 min</span></div>
+        <p class="sub">Presencial u online · Primera sesión sin compromiso</p>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Plan personalizado según tus objetivos</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Flexibilidad de horarios</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acompañamiento entre sesiones</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width:100%">Reserva tu hora</a>
+        <p class="price-note">Se emite boleta de honorarios. Reembolsable según tu plan de Isapre o seguro complementario. Cancelaciones hasta 24 h antes sin costo.</p>
+      </div>
+      <div class="price-media">
+        <img src="assets/hero.png" alt="Detalle de textura suave en tonos rosa y lavanda" loading="lazy" />
+        <div class="veil" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="glow" style="width:480px;height:480px;background:var(--rosa-sereno);bottom:-200px;left:-120px"></div>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a class="logo" href="#top"><span class="dot" aria-hidden="true"></span>Patricia Durán</a>
+        <p style="max-width:34ch;margin-bottom:6px">Psicóloga clínica · Reg. profesional. Acompañamiento psicoterapéutico para mujeres, presencial u online.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4" stroke-linecap="round"/></svg></a>
+          <a href="#" aria-label="Correo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="mailto:hola@patriciaduran.cl">hola@patriciaduran.cl</a></li>
+          <li><a href="tel:+56900000000">+56 9 0000 0000</a></li>
+          <li>Providencia, Santiago</li>
+          <li>Lun a Vie · 9:00–19:00</li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Explora</h4>
+        <ul>
+          <li><a href="#sobre">Sobre mí</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#testimonios">Testimonios</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Patricia Durán. Todos los derechos reservados.</span>
+      <span>Política de privacidad · Términos · Confidencialidad</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- NAV scroll state ---- */
+  var nav = document.getElementById('nav');
+  function onScrollNav(){ nav.classList.toggle('scrolled', window.scrollY > 24); }
+  onScrollNav();
+  window.addEventListener('scroll', onScrollNav, {passive:true});
+
+  /* ---- mobile menu ---- */
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true':'false');
+    toggle.setAttribute('aria-label', open ? 'Cerrar menú':'Abrir menú');
+  });
+  links.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ links.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+  });
+
+  /* ---- HERO video ping-pong loop ---- */
+  var video = document.getElementById('heroVideo');
+  var media = document.getElementById('heroMedia');
+  if(video && !reduce){
+    var rafId = null, reversing = false;
+    var SPEED = 0.5; // reverse step factor for smoothness
+
+    function markReady(){ media.classList.add('video-ready'); }
+    video.addEventListener('loadeddata', markReady);
+    video.addEventListener('playing', markReady);
+
+    function reverseStep(){
+      // step backwards manually since playbackRate can't be negative
+      if(!reversing) return;
+      video.currentTime = Math.max(0, video.currentTime - 0.033 * (1/ (1/SPEED)));
+      if(video.currentTime <= 0.04){
+        reversing = false;
+        video.currentTime = 0;
+        var p = video.play(); if(p && p.catch) p.catch(function(){});
+        cancelAnimationFrame(rafId);
+        return;
+      }
+      rafId = requestAnimationFrame(reverseStep);
+    }
+
+    video.addEventListener('ended', function(){
+      // begin reverse playback (ping-pong back to start)
+      reversing = true;
+      video.pause();
+      video.currentTime = Math.max(0, video.duration - 0.05);
+      rafId = requestAnimationFrame(reverseStep);
+    });
+
+    var tryPlay = function(){ var p = video.play(); if(p && p.catch) p.catch(function(){}); };
+    if(video.readyState >= 2){ tryPlay(); }
+    video.addEventListener('canplay', tryPlay, {once:true});
+  } else if(video && reduce){
+    video.removeAttribute('autoplay');
+    video.style.display='none';
+    media.classList.remove('video-ready');
+  }
+
+  /* ---- REVEAL on scroll (rect-based for reliability) ---- */
+  var revs = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if(reduce){
+    revs.forEach(function(r){ r.classList.add('in'); });
+  } else {
+    var revTicking = false;
+    function checkReveals(){
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for(var i=revs.length-1;i>=0;i--){
+        var el = revs[i];
+        var top = el.getBoundingClientRect().top;
+        if(top < vh * 0.9){
+          el.classList.add('in');
+          // Safety: lock in the end-state once the transition would have completed,
+          // in case the animation timeline is paused (e.g. an offscreen/non-painting frame).
+          (function(node){ setTimeout(function(){
+            if(parseFloat(getComputedStyle(node).opacity) < 0.99){
+              node.style.transition = 'none'; node.style.opacity = '1'; node.style.transform = 'none';
+            }
+          }, 1100); })(el);
+          revs.splice(i,1);
+        }
+      }
+      revTicking = false;
+    }
+    // run directly (rAF can be throttled to never-fire in background frames)
+    window.addEventListener('scroll', checkReveals, {passive:true});
+    window.addEventListener('resize', checkReveals);
+    window.addEventListener('load', checkReveals);
+    checkReveals();
+  }
+
+  /* ---- HEART connect on scroll ---- */
+  var stage = document.getElementById('heartStage');
+  var hL = document.getElementById('heartL');
+  var hR = document.getElementById('heartR');
+  var glow = document.getElementById('heartGlow');
+  var caption = document.getElementById('connectCaption');
+  var hint = document.getElementById('heartHint');
+  var section = document.getElementById('conexion');
+  var MAXSEP = 62; // svg units each half travels apart
+  var joined = false;
+
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function easeInOut(t){ return t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
+
+  if(reduce){
+    // show joined heart statically, reveal caption
+    hL.removeAttribute('transform'); hR.removeAttribute('transform');
+    caption.classList.add('show');
+    if(hint) hint.style.display='none';
+  } else if(section){
+    function updateHeart(){
+      var rect = section.getBoundingClientRect();
+      var vh = window.innerHeight;
+      // progress: 0 when section top enters bottom, 1 when section center reaches ~upper third
+      var total = rect.height + vh*0.5;
+      var travelled = (vh - rect.top);
+      var p = clamp(travelled / total, 0, 1);
+      // remap so the join completes around 65% of the scroll-through, then holds
+      var t = easeInOut(clamp(p/0.62, 0, 1));
+      var sep = MAXSEP * (1 - t);
+      hL.setAttribute('transform', 'translate(' + (-sep) + ',0)');
+      hR.setAttribute('transform', 'translate(' + (sep) + ',0)');
+
+      if(t > 0.985){
+        if(!joined){
+          joined = true;
+          glow.style.transition='opacity .7s ease, transform .9s cubic-bezier(.22,.61,.36,1)';
+          glow.style.opacity='1'; glow.style.transform='scale(1.08)';
+          stage.style.transition='transform .5s cubic-bezier(.34,1.56,.64,1)';
+          stage.style.transform='scale(1.04)';
+          setTimeout(function(){ stage.style.transform='scale(1)'; }, 320);
+          caption.classList.add('show');
+          setTimeout(function(){
+            if(parseFloat(getComputedStyle(caption).opacity) < 0.99){
+              caption.style.transition='none'; caption.style.opacity='1'; caption.style.transform='none';
+            }
+          }, 1000);
+          if(hint) hint.style.opacity='0';
+        }
+      } else {
+        if(joined){
+          joined = false;
+          glow.style.opacity='0'; glow.style.transform='scale(.6)';
+          caption.classList.remove('show');
+          if(hint) hint.style.opacity='1';
+        }
+      }
+    }
+    window.addEventListener('scroll', updateHeart, {passive:true});
+    window.addEventListener('resize', updateHeart);
+    window.addEventListener('load', updateHeart);
+    updateHeart();
+  }
+})();
+</script>
+
+</body>
+</html>
