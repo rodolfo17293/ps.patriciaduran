@@ -113,6 +113,21 @@ p{text-wrap:pretty}
 }
 .btn-ghost:hover{background:#fff;transform:translateY(-2px)}
 
+/* ---- agenda actions + calendario embebido ---- */
+.agenda-actions{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.alt-contact{font-size:.85rem;color:var(--carbon-soft);text-align:center;margin-top:12px}
+.alt-contact a{color:var(--rosa-profundo);text-decoration:underline;text-underline-offset:2px}
+.cal-block{margin-top:44px;scroll-margin-top:96px}
+.cal-block h3{font-family:var(--serif);font-weight:300;font-size:clamp(1.5rem,3.6vw,2rem);text-align:center;margin-bottom:8px}
+.cal-block .cal-sub{text-align:center;color:var(--carbon-soft);font-size:.95rem;margin:0 auto 24px;max-width:46ch}
+.cal-shell{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+.calendly-inline-widget{min-width:320px;height:700px}
+.cal-placeholder{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:54px 26px;background:linear-gradient(180deg,var(--crema),#fff)}
+.cal-placeholder .cal-ico{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);color:var(--rosa-profundo)}
+.cal-placeholder p{max-width:44ch;color:var(--carbon-soft);margin:0}
+.cal-placeholder .btn{margin-top:4px}
+@media(max-width:760px){.calendly-inline-widget{height:760px}}
+
 /* ============ NAVBAR ============ */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -649,12 +664,32 @@ section{position:relative}
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Flexibilidad de horarios</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acompañamiento entre sesiones</li>
         </ul>
-        <a href="https://wa.me/56977355717?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20sesi%C3%B3n%20exploratoria%20con%20Patricia" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%" aria-label="Reserva tu hora por WhatsApp">Reserva tu hora</a>
+        <div class="agenda-actions">
+          <a href="#calendario" class="btn btn-primary" style="width:100%" aria-label="Agenda tu sesión en el calendario">Agenda tu sesión</a>
+          <a id="payBtn" href="#calendario" class="btn btn-ghost" style="width:100%;display:none" target="_blank" rel="noopener" aria-label="Paga tu sesión en línea">Pagar sesión en línea</a>
+        </div>
+        <p class="alt-contact">¿Prefieres coordinar por WhatsApp? <a href="https://wa.me/56977355717?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20sesi%C3%B3n%20exploratoria%20con%20Patricia" target="_blank" rel="noopener">Escríbenos</a></p>
         <p class="price-note">Se emite boleta de honorarios. Reembolsable según tu plan de Isapre o seguro complementario. Cancelaciones hasta 24 h antes sin costo.</p>
       </div>
       <div class="price-media">
         <img src="assets/hero.png" alt="Detalle de textura suave en tonos rosa y lavanda" loading="lazy" />
         <div class="veil" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="cal-block reveal d1" id="calendario">
+      <h3>Elige tu día y hora</h3>
+      <p class="cal-sub">Reserva en línea en pocos clics. Recibirás la confirmación y un recordatorio por correo.</p>
+      <div class="cal-shell">
+        <!-- El calendario de Calendly se inserta aquí cuando CALENDLY_URL está configurada -->
+        <div id="calMount" class="calendly-inline-widget" data-resize="true"></div>
+        <div id="calFallback" class="cal-placeholder">
+          <span class="cal-ico" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
+          </span>
+          <p>Estamos terminando de habilitar la reserva en línea. Mientras tanto, escríbenos por WhatsApp y coordinamos tu hora con gusto.</p>
+          <a href="https://wa.me/56977355717?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20sesi%C3%B3n%20exploratoria%20con%20Patricia" target="_blank" rel="noopener" class="btn btn-primary">Reservar por WhatsApp</a>
+        </div>
       </div>
     </div>
 
@@ -712,6 +747,48 @@ section{position:relative}
 <script>
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ======================================================================
+     CONFIGURACIÓN DE AGENDA Y PAGO  —  pega aquí los enlaces de Patricia
+     ----------------------------------------------------------------------
+     CALENDLY_URL : enlace del evento de Calendly
+                    ej: "https://calendly.com/ps-patriciaduran/sesion"
+     PAY_URL      : enlace de pago en pesos (Mercado Pago / Flow / Khipu)
+                    ej: "https://mpago.la/xxxxxxx"
+     Si quedan vacíos, la web muestra el respaldo por WhatsApp.
+     ====================================================================== */
+  var CALENDLY_URL = "";
+  var PAY_URL = "";
+
+  /* ---- Botón de pago + calendario embebido (Calendly) ---- */
+  (function initAgenda(){
+    var payBtn = document.getElementById('payBtn');
+    if(payBtn && PAY_URL){ payBtn.href = PAY_URL; payBtn.style.display = ''; }
+
+    var mount = document.getElementById('calMount');
+    var fallback = document.getElementById('calFallback');
+    if(!mount) return;
+
+    if(CALENDLY_URL){
+      if(fallback) fallback.style.display = 'none';
+      var css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = 'https://assets.calendly.com/assets/external/widget.css';
+      document.head.appendChild(css);
+      var s = document.createElement('script');
+      s.src = 'https://assets.calendly.com/assets/external/widget.js';
+      s.async = true;
+      s.onload = function(){
+        if(window.Calendly){
+          window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: mount });
+        }
+      };
+      document.body.appendChild(s);
+    } else {
+      // Sin enlace aún: ocultamos el contenedor y dejamos el respaldo por WhatsApp.
+      mount.style.display = 'none';
+    }
+  })();
 
   /* ---- NAV scroll state ---- */
   var nav = document.getElementById('nav');
