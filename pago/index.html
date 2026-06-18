@@ -36,6 +36,10 @@
   .pay-fallback{display:flex;flex-direction:column;align-items:center;gap:14px}
   .pay-fallback .cal-ico{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--crema);border:1px solid var(--line);color:var(--rosa-profundo)}
   .pay-fallback p{max-width:44ch;color:var(--carbon-soft);margin:0}
+  .pay-plans{display:none;flex-direction:column;gap:10px;align-items:center;margin-top:2px}
+  .pay-plans-title{font-size:.9rem;color:var(--carbon-soft);margin:0}
+  .pay-plans-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .pay-plans-btns .btn{min-width:auto}
 
   /* candado: el paso 2 se habilita al agendar */
   .lock-note{display:inline-flex;align-items:center;gap:.5em;font-size:.88rem;color:var(--carbon-soft);background:var(--crema-2);border:1px solid var(--line);border-radius:999px;padding:.55em 1.1em;margin-bottom:16px}
@@ -129,7 +133,14 @@
       </div>
 
       <div class="pay-box">
-        <a id="payBtn" class="btn btn-primary" style="display:none" target="_blank" rel="noopener" aria-label="Pagar sesión en línea">Pagar sesión · $35.000</a>
+        <a id="payBtn" class="btn btn-primary" style="display:none" target="_blank" rel="noopener" aria-label="Pagar sesión individual de 35.000 pesos">Pagar sesión · $35.000</a>
+        <div id="payPlans" class="pay-plans">
+          <p class="pay-plans-title">¿Prefieres avanzar con un plan? Ahorras por sesión:</p>
+          <div class="pay-plans-btns">
+            <a id="payPlan4" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Pagar plan de 4 sesiones, 120.000 pesos">Plan de 4 · $120.000</a>
+            <a id="payPlan8" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Pagar plan de 8 sesiones, 200.000 pesos">Plan de 8 · $200.000</a>
+          </div>
+        </div>
         <div id="payFallback" class="pay-fallback">
           <span class="cal-ico" aria-hidden="true">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg>
@@ -191,8 +202,10 @@
      el botón de pago automáticamente. Si CAL_LINK queda vacío, se muestra
      el respaldo por WhatsApp.
      ====================================================================== */
-  var CAL_LINK = "rodolfo-schneider-jy7izo/15min";  // (de prueba) reemplazar por el evento real de la sesión
-  var PAY_URL  = "";
+  var CAL_LINK  = "rodolfo-schneider-jy7izo/30min";  // sesión de 45 min en Cal.com
+  var PAY_URL   = "https://mpago.la/1FsJkr3";        // sesión individual $35.000
+  var PAY_PLAN4 = "https://mpago.la/1oCVwZ8";        // plan de 4 sesiones $120.000
+  var PAY_PLAN8 = "https://mpago.la/2UuKEja";        // plan de 8 sesiones $200.000
 
   /* ---- mobile menu ---- */
   var toggle = document.getElementById('navToggle');
@@ -215,6 +228,10 @@
   var payLock     = document.getElementById('payLock');
   var payUnlocked = document.getElementById('payUnlocked');
 
+  var payPlans = document.getElementById('payPlans');
+  var payPlan4 = document.getElementById('payPlan4');
+  var payPlan8 = document.getElementById('payPlan8');
+
   function prepararPago(){
     // deja el botón de pago listo (o el respaldo por WhatsApp si no hay link)
     if(payBtn && PAY_URL){
@@ -222,6 +239,9 @@
       payBtn.style.display = '';
       if(payFallback) payFallback.style.display = 'none';
     }
+    if(payPlan4 && PAY_PLAN4) payPlan4.href = PAY_PLAN4;
+    if(payPlan8 && PAY_PLAN8) payPlan8.href = PAY_PLAN8;
+    if(payPlans && (PAY_PLAN4 || PAY_PLAN8)) payPlans.style.display = 'flex';
   }
   function desbloquearPago(scroll){
     if(payStep) payStep.classList.remove('is-locked');
