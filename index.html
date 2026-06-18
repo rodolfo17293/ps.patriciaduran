@@ -53,7 +53,7 @@
       <h1>Un espacio seguro para <em>volver a ti</em></h1>
       <p class="lede">Soy Patricia Durán, psicóloga con más de 15 años de experiencia acompañando procesos de bienestar emocional. Mi forma de trabajar combina escucha activa, respeto y cercanía, creando un espacio donde puedas sentirte segura para comprender lo que estás viviendo y construir cambios que tengan sentido para ti.</p>
       <div class="hero-cta">
-        <a href="https://wa.me/56977355717?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20sesi%C3%B3n%20exploratoria%20con%20Patricia" target="_blank" rel="noopener" class="btn btn-primary" aria-label="Agenda tu primera sesión por WhatsApp">Agenda tu primera sesión</a>
+        <a id="exploraBtn" href="https://wa.me/56977355717?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20sesi%C3%B3n%20exploratoria%20gratis%20de%2020%20min%20con%20Patricia" target="_blank" rel="noopener" class="btn btn-primary" aria-label="Agenda tu sesión exploratoria gratis de 20 minutos">Agenda tu sesión gratis de 20 min</a>
         <a href="#sobre" class="btn btn-ghost">Conoce más</a>
       </div>
       <div class="hero-meta">
@@ -361,6 +361,44 @@
 <script>
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ======================================================================
+     SESIÓN EXPLORATORIA GRATIS (Cal.com)  —  pega aquí el link de Patricia
+     ----------------------------------------------------------------------
+     CAL_LINK : el "username/evento" de Cal.com (SIN https://cal.com/)
+                ej: "patriciaduran/exploratoria-20min"
+     Si queda vacío, el botón del hero usa WhatsApp como respaldo.
+     ====================================================================== */
+  var CAL_LINK = "";
+
+  (function initCal(){
+    var btn = document.getElementById('exploraBtn');
+    if(!btn || !CAL_LINK) return;             // sin link → se mantiene el respaldo por WhatsApp
+    // El calendario abre en una ventana emergente sobre la misma web (no redirige).
+    btn.href = "https://cal.com/" + CAL_LINK;  // respaldo si el script no cargara
+    btn.removeAttribute('target');
+    btn.setAttribute('data-cal-link', CAL_LINK);
+    btn.setAttribute('data-cal-config', '{"layout":"month_view"}');
+    btn.setAttribute('aria-label', 'Agenda tu sesión exploratoria gratis de 20 minutos');
+    (function (C, A, L) {
+      var p = function (a, ar) { a.q.push(ar); };
+      var d = C.document;
+      C.Cal = C.Cal || function () {
+        var cal = C.Cal, ar = arguments;
+        if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+        if (ar[0] === L) {
+          var api = function () { p(api, arguments); }, namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); }
+          else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", { origin: "https://cal.com" });
+    Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+  })();
 
   /* ---- NAV scroll state ---- */
   var nav = document.getElementById('nav');
