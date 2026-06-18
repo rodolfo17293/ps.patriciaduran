@@ -182,7 +182,7 @@ p{text-wrap:pretty}
 
 /* ============ SECTIONS ============ */
 section{position:relative}
-.section{padding:clamp(80px,12vh,150px) 0}
+.section{padding:clamp(80px,12vh,150px) 0;position:relative;overflow-x:clip}
 .center-col{max-width:760px;margin-inline:auto;text-align:center}
 .section h2{font-size:clamp(2rem,4.6vw,3.2rem);margin:.5em 0 .55em}
 .section h2 em{font-style:italic;color:var(--rosa-profundo)}
@@ -271,6 +271,7 @@ section{position:relative}
 .price-body .amt{display:flex;align-items:baseline;gap:10px;margin:.4em 0 .2em}
 .price-body .amt b{font-family:var(--serif);font-size:clamp(2.6rem,6vw,3.8rem);font-weight:300;color:var(--carbon)}
 .price-body .amt span{color:var(--carbon-soft);font-size:1rem}
+.price-body .amt-meta{color:var(--carbon-soft);font-size:1rem;font-weight:400;margin:-.05em 0 .55em}
 .price-body .sub{color:var(--carbon-soft);font-weight:300;margin-bottom:1.6em}
 .price-body ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin:1.4em 0 2em}
 .price-body li{display:flex;gap:12px;align-items:flex-start;font-size:.98rem}
@@ -347,7 +348,7 @@ section{position:relative}
   .portrait-frame{width:clamp(260px,76vw,380px)}
   .scroll-cue{display:none}
   .nav-links{
-    position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:flex-start;
+    position:fixed;top:0;left:0;right:0;width:100%;flex-direction:column;align-items:flex-start;
     background:rgba(250,246,242,.97);backdrop-filter:blur(20px);
     padding:96px 32px 36px;gap:22px;
     transform:translateY(-110%);transition:transform .5s var(--ease);box-shadow:var(--shadow);
