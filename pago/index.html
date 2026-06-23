@@ -4,11 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Agenda y paga tu sesión · Patricia Durán — Psicóloga</title>
-<meta name="description" content="Reserva tu sesión con Patricia Durán: primero eliges día y hora, y al confirmar se habilita el pago en línea de forma segura." />
+<meta name="description" content="Reserva tu sesión con Patricia Durán en 2 pasos: primero eliges día y hora, y luego pagas para confirmar, de forma segura." />
 <meta name="author" content="Patricia Durán" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Agenda y paga tu sesión · Patricia Durán" />
-<meta property="og:description" content="Primero agendas tu hora y luego completas el pago, de forma segura." />
+<meta property="og:description" content="Reserva en 2 pasos: agenda tu hora y luego paga para confirmar." />
 <meta property="og:image" content="../assets/hero.png" />
 <meta property="og:locale" content="es_ES" />
 <meta name="theme-color" content="#FAF6F2" />
@@ -26,26 +26,51 @@
   .pago-main .center-col{margin-bottom:8px}
   .back-link{display:inline-flex;align-items:center;gap:.4em;font-size:.9rem;color:var(--carbon-soft);margin-bottom:18px}
   .back-link:hover{color:var(--rosa-profundo)}
-  .step-badge{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--durazno),var(--rosa-sereno));color:#fff;font-family:var(--sans);font-weight:600;font-size:.95rem;margin-right:.5em;vertical-align:middle}
+
+  /* indicador de pasos */
+  .stepper{display:flex;justify-content:center;max-width:520px;margin:26px auto 8px}
+  .stepper .st{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+  .stepper .st::before{content:"";position:absolute;top:21px;right:50%;width:100%;height:2px;background:var(--line);z-index:0}
+  .stepper .st:first-child::before{display:none}
+  .stepper .st .dot{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.2rem;background:#fff;border:2px solid var(--line);color:var(--carbon-soft);transition:all .45s var(--ease)}
+  .stepper .st .lbl{font-size:.82rem;margin-top:9px;color:var(--carbon-soft);font-weight:500}
+  .stepper .st.active .dot{background:linear-gradient(135deg,var(--durazno),var(--rosa-sereno));border-color:transparent;color:#fff;box-shadow:0 10px 22px -8px rgba(201,139,139,.7)}
+  .stepper .st.active .lbl{color:var(--carbon)}
+  .stepper .st.done .dot{background:#3f7d57;border-color:transparent;color:#fff}
+  .stepper .st.done .lbl{color:#3f7d57}
+  .stepper .st.done::before{background:#3f7d57}
+
+  .step-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--durazno),var(--rosa-sereno));color:#fff;font-family:var(--sans);font-weight:600;font-size:1rem;margin-right:.55em;vertical-align:middle;flex:none}
+  .cal-block h3{display:flex;align-items:center;justify-content:center}
   .cal-inline{min-width:320px;height:700px}
   @media(max-width:760px){.cal-inline{height:760px}}
+  .hint{display:inline-flex;align-items:center;gap:.5em;font-size:.9rem;color:var(--rosa-profundo);font-weight:500;background:rgba(201,139,139,.08);border:1px solid rgba(201,139,139,.25);border-radius:999px;padding:.5em 1.1em;margin-bottom:18px}
 
-  .pay-box{border:1px solid var(--line);border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow);padding:32px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-  .pay-box .btn{min-width:260px}
-  .pay-box .price-note{margin-top:2px}
+  /* pago */
+  .pay-box{border:1px solid var(--line);border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow);padding:34px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+  .pay-box .btn{min-width:280px;font-size:1.05rem;padding:1.05em 1.8em}
   .pay-fallback{display:flex;flex-direction:column;align-items:center;gap:14px}
   .pay-fallback .cal-ico{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--crema);border:1px solid var(--line);color:var(--rosa-profundo)}
   .pay-fallback p{max-width:44ch;color:var(--carbon-soft);margin:0}
-  .pay-plans{display:none;flex-direction:column;gap:10px;align-items:center;margin-top:2px}
-  .pay-plans-title{font-size:.9rem;color:var(--carbon-soft);margin:0}
-  .pay-plans-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-  .pay-plans-btns .btn{min-width:auto}
 
-  /* candado: el paso 2 se habilita al agendar */
-  .lock-note{display:inline-flex;align-items:center;gap:.5em;font-size:.88rem;color:var(--carbon-soft);background:var(--crema-2);border:1px solid var(--line);border-radius:999px;padding:.55em 1.1em;margin-bottom:16px}
-  .ok-note{display:none;align-items:center;gap:.5em;font-size:.92rem;color:#3f7d57;background:rgba(63,125,87,.08);border:1px solid rgba(63,125,87,.3);border-radius:999px;padding:.55em 1.1em;margin-bottom:16px}
-  .is-locked .pay-box{opacity:.5;filter:grayscale(.35);pointer-events:none;user-select:none;transition:opacity .5s ease,filter .5s ease}
-  .pay-box{transition:opacity .5s ease,filter .5s ease}
+  /* candado / bloqueo del paso 2 */
+  .lock-panel{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:30px 24px;border:1.5px dashed var(--line);border-radius:var(--r-lg);background:var(--crema-2)}
+  .lock-panel .ic{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);color:var(--carbon-soft)}
+  .lock-panel p{max-width:42ch;color:var(--carbon-soft);margin:0;font-size:1rem}
+  .lock-panel b{color:var(--carbon)}
+
+  /* aviso de éxito al agendar (bien notorio) */
+  .success-banner{display:none;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(63,125,87,.14),rgba(63,125,87,.05));border:1.5px solid rgba(63,125,87,.45);border-radius:18px;padding:18px 22px;margin:0 auto 20px;max-width:540px;text-align:left}
+  .success-banner .ic{flex:none;width:42px;height:42px;border-radius:50%;background:#3f7d57;color:#fff;display:flex;align-items:center;justify-content:center}
+  .success-banner .tx{font-size:1rem;color:var(--carbon)}
+  .success-banner .tx b{color:#2f6b46}
+
+  /* el paso de pago atenuado mientras está bloqueado */
+  #payContent{display:none}
+
+  /* latido del botón para llamar la atención al desbloquear */
+  @keyframes paypulse{0%{box-shadow:0 0 0 0 rgba(201,139,139,.55)}70%{box-shadow:0 0 0 16px rgba(201,139,139,0)}100%{box-shadow:0 0 0 0 rgba(201,139,139,0)}}
+  .pay-pulse{animation:paypulse 1.8s ease-out 4}
 </style>
 </head>
 <body>
@@ -75,13 +100,20 @@
       Volver al inicio
     </a>
     <div class="center-col">
-      <span class="eyebrow">Agenda y pago</span>
-      <h1>Reserva tu <em>sesión</em></h1>
-      <p class="plans-intro" style="margin-top:14px">Primero elige tu día y hora. Al confirmar tu reserva, se habilita el pago para dejar tu sesión confirmada. Si prefieres, también puedes coordinar por WhatsApp.</p>
+      <span class="eyebrow">Reserva tu sesión</span>
+      <h1>Solo <em>2 pasos</em></h1>
+      <p class="plans-intro" style="margin-top:14px">Primero eliges tu día y hora 📅, y luego pagas para confirmar 💳. Te toma menos de 2 minutos.</p>
+    </div>
+
+    <!-- Indicador de pasos -->
+    <div class="stepper" aria-hidden="true">
+      <div class="st active" id="stp1"><div class="dot">1</div><div class="lbl">Agenda tu hora</div></div>
+      <div class="st" id="stp2"><div class="dot">2</div><div class="lbl">Paga tu sesión</div></div>
+      <div class="st" id="stp3"><div class="dot">✓</div><div class="lbl">¡Listo!</div></div>
     </div>
 
     <!-- Resumen de la sesión -->
-    <div class="price-card" style="margin-top:40px">
+    <div class="price-card" style="margin-top:34px">
       <div class="price-body">
         <span class="tag" style="font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rosa-profundo);font-weight:500">Sesión individual</span>
         <div class="amt"><b>45 min / $35.000</b></div>
@@ -102,7 +134,8 @@
     <!-- Paso 1: agendar -->
     <div class="cal-block" id="calendario">
       <h3><span class="step-badge">1</span>Elige tu día y hora</h3>
-      <p class="cal-sub">Reserva en línea en pocos clics. Recibirás la confirmación y un recordatorio por correo.</p>
+      <p class="cal-sub">Toca un día disponible y luego una hora. Recibirás la confirmación y un recordatorio por correo.</p>
+      <div class="center-col"><span class="hint">👇 Empieza aquí: elige tu horario</span></div>
       <div class="cal-shell">
         <!-- El calendario de Cal.com se inserta aquí cuando CAL_LINK está configurada -->
         <div id="calInline" class="cal-inline"></div>
@@ -117,38 +150,37 @@
     </div>
 
     <!-- Paso 2: pagar (se habilita al agendar) -->
-    <div class="cal-block is-locked" id="payStep">
-      <h3><span class="step-badge">2</span>Confirma tu pago</h3>
-      <p class="cal-sub">Disponible una vez agendada tu hora. Así dejas tu sesión confirmada.</p>
+    <div class="cal-block" id="payStep">
+      <h3><span class="step-badge">2</span>Paga tu sesión</h3>
+      <p class="cal-sub">Una vez agendada tu hora, paga para dejar tu sesión confirmada.</p>
 
-      <div class="center-col" style="margin-bottom:4px">
-        <span class="lock-note" id="payLock" aria-live="polite">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-          Primero agenda tu hora en el paso 1
+      <!-- Estado BLOQUEADO (antes de agendar) -->
+      <div class="lock-panel" id="payLock">
+        <span class="ic" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
         </span>
-        <span class="ok-note" id="payUnlocked" aria-live="polite">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          ¡Hora reservada! Ahora completa tu pago.
-        </span>
+        <p>El pago se activa <b>automáticamente</b> apenas elijas tu día y hora en el <b>Paso 1</b> (arriba ☝️).</p>
       </div>
 
-      <div class="pay-box">
-        <a id="payBtn" class="btn btn-primary" style="display:none" target="_blank" rel="noopener" aria-label="Pagar sesión individual de 35.000 pesos">Pagar sesión · $35.000</a>
-        <div id="payPlans" class="pay-plans">
-          <p class="pay-plans-title">¿Prefieres avanzar con un plan? Ahorras por sesión:</p>
-          <div class="pay-plans-btns">
-            <a id="payPlan4" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Pagar plan de 4 sesiones, 120.000 pesos">Plan de 4 · $120.000</a>
-            <a id="payPlan8" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Pagar plan de 8 sesiones, 200.000 pesos">Plan de 8 · $200.000</a>
-          </div>
-        </div>
-        <div id="payFallback" class="pay-fallback">
-          <span class="cal-ico" aria-hidden="true">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg>
+      <!-- Estado DESBLOQUEADO (después de agendar) -->
+      <div id="payContent">
+        <div class="success-banner" id="successBanner">
+          <span class="ic" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
           </span>
-          <p>Estamos habilitando el pago en línea (Mercado Pago). Por ahora, coordina tu pago por WhatsApp y te enviamos los datos.</p>
-          <a href="https://wa.me/56977355717?text=Hola%2C%20ya%20agend%C3%A9%20mi%20sesi%C3%B3n%20y%20quiero%20coordinar%20el%20pago%20con%20Patricia" target="_blank" rel="noopener" class="btn btn-primary">Coordinar pago por WhatsApp</a>
+          <span class="tx"><b>¡Tu hora quedó agendada!</b> Ahora toca el botón para pagar y dejarla confirmada.</span>
         </div>
-        <p class="price-note">Al pagar, serás redirigida a <strong>Mercado Pago</strong> para completar tu pago de forma segura. Recibirás tu boleta de honorarios al correo.</p>
+        <div class="pay-box">
+          <a id="payBtn" class="btn btn-primary" target="_blank" rel="noopener" aria-label="Pagar mi sesión, 35.000 pesos">Pagar mi sesión · $35.000</a>
+          <div id="payFallback" class="pay-fallback" style="display:none">
+            <span class="cal-ico" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg>
+            </span>
+            <p>Coordina tu pago por WhatsApp y te enviamos los datos.</p>
+            <a href="https://wa.me/56977355717?text=Hola%2C%20ya%20agend%C3%A9%20mi%20sesi%C3%B3n%20y%20quiero%20coordinar%20el%20pago%20con%20Patricia" target="_blank" rel="noopener" class="btn btn-primary">Coordinar pago por WhatsApp</a>
+          </div>
+          <p class="price-note">Al tocar el botón, se abre <strong>Mercado Pago</strong> para completar el pago de forma segura (tarjeta, débito o transferencia). Recibirás tu boleta al correo.</p>
+        </div>
       </div>
     </div>
 
@@ -192,20 +224,16 @@
 <script>
 (function(){
   /* ======================================================================
-     CONFIGURACIÓN DE AGENDA Y PAGO  —  pega aquí los enlaces de Patricia
+     CONFIGURACIÓN  —  pega aquí los enlaces de Patricia
      ----------------------------------------------------------------------
-     CAL_LINK : el "usuario/evento" de Cal.com de la SESIÓN de 45 min
-                (SIN https://cal.com/) · ej: "patriciaduran/sesion-45min"
-     PAY_URL  : enlace de pago en pesos (Mercado Pago / Flow / Khipu)
-                ej: "https://mpago.la/xxxxxxx"
-     FLUJO: la persona agenda primero; al confirmar la reserva se habilita
-     el botón de pago automáticamente. Si CAL_LINK queda vacío, se muestra
-     el respaldo por WhatsApp.
+     CAL_LINK : "usuario/evento" de Cal.com de la SESIÓN (sin https://cal.com/)
+     PAY_URL  : enlace de pago en pesos de Mercado Pago (sesión individual)
+     FLUJO: la persona agenda primero; al confirmar la reserva se habilita el
+     botón de pago automáticamente. Si CAL_LINK queda vacío, se muestra el
+     respaldo por WhatsApp.
      ====================================================================== */
-  var CAL_LINK  = "patricia-duran/sesion-individual";  // sesión de 45 min en Cal.com
-  var PAY_URL   = "https://mpago.la/2dj81NJ";        // sesión individual $35.000
-  var PAY_PLAN4 = "https://mpago.la/2D4fUy6";        // plan de 4 sesiones $120.000
-  var PAY_PLAN8 = "https://mpago.la/2nVGSc8";        // plan de 8 sesiones $200.000
+  var CAL_LINK = "patricia-duran/sesion-individual";  // sesión de 45 min en Cal.com
+  var PAY_URL  = "https://mpago.la/2dj81NJ";          // sesión individual $35.000
 
   /* ---- mobile menu ---- */
   var toggle = document.getElementById('navToggle');
@@ -221,33 +249,35 @@
     });
   }
 
-  /* ---- elementos del paso de pago ---- */
-  var payStep     = document.getElementById('payStep');
+  /* ---- elementos ---- */
+  var payLock     = document.getElementById('payLock');
+  var payContent  = document.getElementById('payContent');
   var payBtn      = document.getElementById('payBtn');
   var payFallback = document.getElementById('payFallback');
-  var payLock     = document.getElementById('payLock');
-  var payUnlocked = document.getElementById('payUnlocked');
-
-  var payPlans = document.getElementById('payPlans');
-  var payPlan4 = document.getElementById('payPlan4');
-  var payPlan8 = document.getElementById('payPlan8');
+  var banner      = document.getElementById('successBanner');
+  var stp1 = document.getElementById('stp1');
+  var stp2 = document.getElementById('stp2');
 
   function prepararPago(){
-    // deja el botón de pago listo (o el respaldo por WhatsApp si no hay link)
     if(payBtn && PAY_URL){
       payBtn.href = PAY_URL;
-      payBtn.style.display = '';
       if(payFallback) payFallback.style.display = 'none';
+    } else {
+      if(payBtn) payBtn.style.display = 'none';
+      if(payFallback) payFallback.style.display = 'flex';
     }
-    if(payPlan4 && PAY_PLAN4) payPlan4.href = PAY_PLAN4;
-    if(payPlan8 && PAY_PLAN8) payPlan8.href = PAY_PLAN8;
-    if(payPlans && (PAY_PLAN4 || PAY_PLAN8)) payPlans.style.display = 'flex';
   }
+
   function desbloquearPago(scroll){
-    if(payStep) payStep.classList.remove('is-locked');
-    if(payLock) payLock.style.display = 'none';
-    if(payUnlocked) payUnlocked.style.display = 'inline-flex';
     prepararPago();
+    if(payLock) payLock.style.display = 'none';
+    if(payContent) payContent.style.display = 'block';
+    if(banner) banner.style.display = 'flex';
+    // actualizar el indicador de pasos
+    if(stp1){ stp1.classList.remove('active'); stp1.classList.add('done'); }
+    if(stp2){ stp2.classList.add('active'); }
+    // llamar la atención sobre el botón
+    if(payBtn){ payBtn.classList.add('pay-pulse'); }
     if(scroll){
       var el = document.getElementById('payStep');
       if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -260,7 +290,7 @@
 
   if(CAL_LINK){
     if(fallback) fallback.style.display = 'none';
-    prepararPago();   // deja listo el href; el paso sigue "is-locked" hasta agendar
+    prepararPago();   // deja listo el href; el paso sigue bloqueado hasta agendar
     (function (C, A, L) {
       var p = function (a, ar) { a.q.push(ar); };
       var d = C.document;
