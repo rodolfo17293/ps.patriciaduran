@@ -43,7 +43,10 @@
   .step-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--durazno),var(--rosa-sereno));color:#fff;font-family:var(--sans);font-weight:600;font-size:1rem;margin-right:.55em;vertical-align:middle;flex:none}
   .cal-block h3{display:flex;align-items:center;justify-content:center}
   .cal-inline{min-width:320px;height:700px}
-  @media(max-width:760px){.cal-inline{height:760px}}
+  @media(max-width:760px){
+    .pago-main{padding-top:104px}
+    .cal-inline{height:auto;min-height:600px}
+  }
   .hint{display:inline-flex;align-items:center;gap:.5em;font-size:.9rem;color:var(--rosa-profundo);font-weight:500;background:rgba(201,139,139,.08);border:1px solid rgba(201,139,139,.25);border-radius:999px;padding:.5em 1.1em;margin-bottom:18px}
 
   /* pago */
